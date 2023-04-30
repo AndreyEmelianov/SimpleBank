@@ -17,6 +17,8 @@ const tabContents = document.querySelectorAll('.operations__content');
 
 const nav = document.querySelector('.nav');
 
+const header = document.querySelector('.header');
+
 // Modal window
 const openModalWindow = function (event) {
   event.preventDefault();
@@ -117,3 +119,23 @@ nav.addEventListener('mouseover', function (event) {
 nav.addEventListener('mouseout', function (event) {
   navLinksHoverAnimation(event, 1);
 });
+
+// sticky navigation
+
+const navHeight = nav.getBoundingClientRect().height;
+
+const getStickyNav = function (entries) {
+  const entry = entries[0];
+
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
+const observer = new IntersectionObserver(getStickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+observer.observe(header);
