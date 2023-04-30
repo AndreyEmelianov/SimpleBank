@@ -15,6 +15,8 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabContainer = document.querySelector('.operations__tab-container');
 const tabContents = document.querySelectorAll('.operations__content');
 
+const nav = document.querySelector('.nav');
+
 // Modal window
 const openModalWindow = function (event) {
   event.preventDefault();
@@ -84,4 +86,34 @@ tabContainer.addEventListener('click', function (event) {
   document
     .querySelector(`.operations__content--${clickedBtn.dataset.tab}`)
     .classList.add('operations__content--active');
+});
+
+// анимация потускнения элементов навигационной панели
+
+const navLinksHoverAnimation = function (event, opacity) {
+  if (event.target.classList.contains('nav__link')) {
+    const linkOver = event.target;
+    const siblingLinks = linkOver
+      .closest('.nav__links')
+      .querySelectorAll('.nav__link');
+    const logo = linkOver.closest('.nav').querySelector('img');
+    const logoText = linkOver.closest('.nav').querySelector('.nav__text');
+
+    siblingLinks.forEach(link => {
+      if (link !== linkOver) {
+        link.style.opacity = opacity;
+      }
+    });
+
+    logo.style.opacity = opacity;
+    logoText.style.opacity = opacity;
+  }
+};
+
+nav.addEventListener('mouseover', function (event) {
+  navLinksHoverAnimation(event, 0.4);
+});
+
+nav.addEventListener('mouseout', function (event) {
+  navLinksHoverAnimation(event, 1);
 });
