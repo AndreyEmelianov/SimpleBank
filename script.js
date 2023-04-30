@@ -19,6 +19,8 @@ const nav = document.querySelector('.nav');
 
 const header = document.querySelector('.header');
 
+const allSections = document.querySelectorAll('.section');
+
 // Modal window
 const openModalWindow = function (event) {
   event.preventDefault();
@@ -133,9 +135,29 @@ const getStickyNav = function (entries) {
     nav.classList.remove('sticky');
   }
 };
-const observer = new IntersectionObserver(getStickyNav, {
+const headerObserver = new IntersectionObserver(getStickyNav, {
   root: null,
   threshold: 0,
   rootMargin: `-${navHeight}px`,
 });
-observer.observe(header);
+headerObserver.observe(header);
+
+// появление секций сайта
+
+const appearanceSection = function (entries, observer) {
+  const entry = entries[0];
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(appearanceSection, {
+  root: null,
+  threshold: 0.18,
+});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
