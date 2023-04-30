@@ -1,7 +1,6 @@
 'use strict';
 
-// Modal window
-
+//events
 const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
@@ -9,6 +8,10 @@ const btnsOpenModalWindow = document.querySelectorAll(
   '.btn--show-modal-window'
 );
 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+// Modal window
 const openModalWindow = function (event) {
   event.preventDefault();
   modalWindow.classList.remove('hidden');
@@ -33,10 +36,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// плавный скролл на странице
-
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+// плавный скролл на кнопке
 
 btnScrollTo.addEventListener('click', function (event) {
   // для старых браузеров
@@ -50,3 +50,16 @@ btnScrollTo.addEventListener('click', function (event) {
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+//плавный скролл на панеле навигации
+
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (event) {
+    event.preventDefault();
+
+    if (event.target.classList.contains('nav__link')) {
+      const href = event.target.getAttribute('href');
+      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
