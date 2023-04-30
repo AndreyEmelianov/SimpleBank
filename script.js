@@ -32,3 +32,21 @@ document.addEventListener('keydown', function (e) {
     closeModalWindow();
   }
 });
+
+// плавный скролл на странице
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (event) {
+  // для старых браузеров
+  // const section1Coords = section1.getBoundingClientRect();
+
+  // window.scrollTo({
+  //   left: section1Coords.left + window.pageXOffset,
+  //   top: section1Coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
